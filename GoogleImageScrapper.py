@@ -40,11 +40,14 @@ class GoogleImageScraper():
                 options = Options()
                 if(headless):
                     options.add_argument('--headless')
+                    options.add_argument("--disable-gpu")
+                    options.add_argument("--no-sandbox")
                 driver = webdriver.Chrome(webdriver_path, chrome_options=options)
                 driver.set_window_size(1400,1050)
                 driver.get("https://www.google.com")
                 break
-            except:
+            except Exception as e:
+                print('EXCEPTION', e)
                 #patch chromedriver if not available or outdated
                 try:
                     driver
