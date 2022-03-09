@@ -24,7 +24,9 @@ from PIL import Image
 import patch 
 
 class GoogleImageScraper():
-    def __init__(self,webdriver_path,image_path, search_key="cat",number_of_images=1,headless=False,min_resolution=(0,0),max_resolution=(1920,1080)):
+    def __init__(self,webdriver_path,image_path, search_key="cat",number_of_images=1,
+                 headless=False, no_sandbox=False, disable_gpu=False,
+                 min_resolution=(0,0),max_resolution=(1920,1080)):
         #check parameter types
         image_path = os.path.join(image_path, search_key)
         if (type(number_of_images)!=int):
@@ -38,10 +40,12 @@ class GoogleImageScraper():
             try:
                 #try going to www.google.com
                 options = Options()
-                if(headless):
+                if (headless):
                     options.add_argument('--headless')
-                    options.add_argument("--disable-gpu")
-                    options.add_argument("--no-sandbox")
+                if (disable_gpu):
+                    options.add_argument('--disable-gpu')
+                if (no_sandbox):
+                    options.add_argument('--no-sandbox')
                 driver = webdriver.Chrome(webdriver_path, chrome_options=options)
                 driver.set_window_size(1400,1050)
                 driver.get("https://www.google.com")
