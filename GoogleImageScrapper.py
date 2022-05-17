@@ -103,7 +103,7 @@ class GoogleImageScraper():
             try:
                 #select image from the popup
                 time.sleep(1)
-                class_names = ["n3VNCb"]
+                class_names = ["n3VNCb", "KAlRDb"]
                 images = [self.driver.find_elements_by_class_name(class_name) for class_name in class_names if len(self.driver.find_elements_by_class_name(class_name)) != 0 ][0]
                 for image in images:
                     #only download images that starts with http
@@ -113,7 +113,7 @@ class GoogleImageScraper():
                         image_urls.append(src_link)
                         count +=1
                         if count % 100 == 0 or count == self.number_of_images:
-                            print("[INFO] Downloaded %d/%d images" % (count, self.number_of_images))
+                            print("[INFO] Scrapped %d/%d images" % (count, self.number_of_images))
                         break
             except Exception:
                 print("[INFO] Unable to get link")   
